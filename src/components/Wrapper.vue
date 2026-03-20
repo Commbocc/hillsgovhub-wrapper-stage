@@ -113,7 +113,7 @@ function isInEnv(envs: string[]) {
 
             <v-app-bar-nav-icon
               @click="drawer = !drawer"
-              class="ms-auto mx-3"
+              class="ml-auto mx-3"
               :aria-label="appBarNavTooltip"
             ></v-app-bar-nav-icon>
           </div>
