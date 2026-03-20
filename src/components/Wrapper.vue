@@ -41,7 +41,8 @@ const data = ref<ApiResponse>();
 
 onMounted(async () => {
   data.value = await $fetch<ApiResponse>(
-    `${import.meta.env.BASE_URL.replace(/\/+$/, "")}/data.json`
+    // `${import.meta.env.BASE_URL.replace(/\/+$/, "")}/data.json`
+    `https://hc-county-data-stack.netlify.app/api/v1/content-types/hillsgovhub_wrapper`
   );
 });
 

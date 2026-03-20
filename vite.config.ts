@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
-import DataApi from "./src/plugins/data-api";
+// import DataApi from "./src/plugins/data-api";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
         customElement: true,
       }),
 
-      DataApi(),
+      // DataApi(),
     ],
 
     build: {
