@@ -85,28 +85,30 @@ function isInEnv(envs: string[]) {
           />
         </template>
 
-        <template v-slot:extension>
-          <div class="d-flex align-center w-100 masdx-5">
-            <img
-              :src="logo"
-              width="auto"
-              height="48"
-              class="d-block mx-3"
-              alt="Hillsborough County Florida"
-            />
+        <template #default>
+          <img
+            :src="logo"
+            width="auto"
+            height="48"
+            class="d-block mx-auto mx-sm-5"
+            alt="Hillsborough County Florida"
+          />
+        </template>
 
+        <template v-slot:extension>
+          <div class="d-flex align-center w-100 mx-5">
             <div>
               <img
                 :src="hillsgovhub"
                 width="auto"
                 height="24"
-                class="d-block mx-3"
+                class="d-block"
                 alt="HillsGovHub"
               />
 
               <pre
                 v-if="env !== 'PRODUCTION'"
-                class="text-center font-weight-black bg-red-darken-2 text-white"
+                class="text-center font-weight-black bg-red-darken-2 text-white mt-1"
                 >{{ env }}</pre
               >
             </div>
