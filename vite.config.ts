@@ -1,8 +1,9 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type UserConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-// import DataApi from "./src/plugins/data-api";
+import { $fetch } from "ofetch";
+import type { ApiResponse } from "./types/api";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(async ({ mode }): Promise<UserConfig> => {
   const env = loadEnv(mode, process.cwd());
 
   return {
@@ -10,9 +11,13 @@ export default defineConfig(({ mode }) => {
       vue({
         customElement: true,
       }),
-
-      // DataApi(),
     ],
+
+    define: {
+      __REMOTE_NAV_DATA__: await $fetch<ApiResponse>(
+        `https://hc-county-data-stack.netlify.app/api/v1/content-types/hillsgovhub_wrapper`
+      ),
+    },
 
     build: {
       rollupOptions: {

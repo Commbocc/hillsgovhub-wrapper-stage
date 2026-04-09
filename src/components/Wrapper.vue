@@ -1,13 +1,15 @@
 <script setup lang="ts">
+// Import necessary Vue composables and utilities
 import { computed, onMounted, ref } from "vue";
-import { $fetch } from "ofetch";
+// import { $fetch } from "ofetch";
 import type { ApiResponse } from "types/api";
 
-// assets
+// Import asset images
 import logo from "../assets/logo.png";
 import hillsgovhub from "../assets/hillsgovhub.png";
 import bgPark from "../assets/bg-park.jpg";
 
+// Define props for the component
 const props = defineProps<{
   appBarTitle: string;
   appBarNavTooltip: string;
@@ -15,8 +17,10 @@ const props = defineProps<{
   navDrawerSubtitle: string;
 }>();
 
+// Reactive reference for navigation drawer state
 const drawer = ref<boolean>();
 
+// Computed property to determine the current environment based on hostname
 const env = computed(() => {
   let { host } = window.location;
 
@@ -37,22 +41,28 @@ const env = computed(() => {
     | "DEV";
 });
 
-const data = ref<ApiResponse>();
+// Reactive reference for API data
+// @ts-ignore
+const data = ref<ApiResponse>(__REMOTE_NAV_DATA__);
 
+// Lifecycle hook to fetch data on component mount
 onMounted(async () => {
-  data.value = await $fetch<ApiResponse>(
-    // `${import.meta.env.BASE_URL.replace(/\/+$/, "")}/data.json`
-    `https://hc-county-data-stack.netlify.app/api/v1/content-types/hillsgovhub_wrapper`
-  );
+  // data.value = await $fetch<ApiResponse>(
+  //   `https://hc-county-data-stack.netlify.app/api/v1/content-types/hillsgovhub_wrapper`
+  // );
 });
 
+// Computed property to get the first entry from the API data
 const entry = computed(() => {
   const [entry] = data.value?.entries ?? [];
   return entry;
 });
 
 /**
- *
+ * Prepends the instance path to the href if prepend is true
+ * @param href - The original href
+ * @param prepend - Whether to prepend the instance (default true)
+ * @returns The modified href
  */
 function prependInstaceToHref(href: string, prepend = true) {
   const [instance] = window.location.pathname.split("/").filter(Boolean);
@@ -60,7 +70,9 @@ function prependInstaceToHref(href: string, prepend = true) {
 }
 
 /**
- *
+ * Checks if the current environment is in the provided list of environments
+ * @param envs - Array of environment strings
+ * @returns True if current env is in the list or DEV
  */
 function isInEnv(envs: string[]) {
   return [...envs, "DEV"].includes(env.value);
