@@ -15,7 +15,7 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
 
     define: {
       __REMOTE_NAV_DATA__: await $fetch<ApiResponse>(
-        `https://hc-county-data-stack.netlify.app/api/v1/content-types/hillsgovhub_wrapper`
+        `https://hc-county-data-stack.netlify.app/api/v1/content_types/hillsgovhub_wrapper/entries`
       ),
     },
 
